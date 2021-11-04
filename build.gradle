@@ -1,0 +1,44 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.6'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'maven-publish'
+	id 'java'
+}
+
+apply plugin: 'maven-publish'
+
+group = 'com.skyxairlines.libs'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	mavenLocal()
+}
+
+dependencies {
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+}
+
+test {
+	useJUnitPlatform()
+}
+
+jar {
+	enabled = true
+}
+
+publishing {
+	publications {
+		myLibrary(MavenPublication) {
+			from components.java
+		}
+	}
+}
